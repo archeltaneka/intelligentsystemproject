@@ -13,7 +13,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import f1_score
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.feature_extraction.text import TfidfVectorizer
-warnings.filterwarnings("ignore", category=DeprecationWarning)
+warnings.filterwarnings("ignore", category=DeprecationWarning) # ignore warnings
 
 # load csv files for both train and test
 train = pd.read_csv('../src/train_E6oV3lV.csv')
@@ -56,8 +56,8 @@ tokenized_tweet = tokenized_tweet.apply(lambda x: [stemmer.stem(i) for i in x])
 # print(tokenized_tweet.head())
 
 # visualization using WordCloud
-all_words = ' '.join([text for text in combi['tidy_tweet'][combi['label'] == 1]])
-wordcloud = WordCloud(width=800, height=500, random_state=21, max_font_size=110).generate(all_words)
+neg_words = ' '.join([text for text in combi['tidy_tweet'][combi['label'] == 1]])
+wordcloud = WordCloud(width=800, height=500, random_state=21, max_font_size=110).generate(neg_words)
 plt.figure(figsize=(10, 7))
 plt.imshow(wordcloud, interpolation="bilinear")
 plt.axis('off')
