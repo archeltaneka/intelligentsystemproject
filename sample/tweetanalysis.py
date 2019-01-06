@@ -42,7 +42,7 @@ def hashtag_extract(x):
 combi['tidy_tweet'] = np.vectorize(remove_pattern)(combi['tweet'], "@[\w]*")
 # remove special chars, numbers, punctuations, etc.
 combi['tidy_tweet'] = combi['tidy_tweet'].str.replace("[^a-zA-Z#]", " ")
-# remove short words -> hmm, oh, etc.
+# remove short words having length less than 3 -> hmm, oh, etc.
 combi['tidy_tweet'] = combi['tidy_tweet'].apply(lambda x: ' '.join([w for w in x.split() if len(w) > 3]))
 # print(combi.head())
 
@@ -54,6 +54,11 @@ tokenized_tweet = combi['tidy_tweet'].apply(lambda x: x.split())
 stemmer = PorterStemmer()
 tokenized_tweet = tokenized_tweet.apply(lambda x: [stemmer.stem(i) for i in x])
 # print(tokenized_tweet.head())
+# put the tokens back together
+for i in range(len(tokenized_tweet)):
+    tokenized_tweet[i] = ' '.join(tokenized_tweet[i])
+
+combi['tidy_tweet'] = tokenized_tweet
 
 # visualization using WordCloud
 neg_words = ' '.join([text for text in combi['tidy_tweet'][combi['label'] == 1]])
