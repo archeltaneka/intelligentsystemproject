@@ -1,0 +1,4 @@
+Show BOW accuracy
+F1 score with BOW(Bag of Words): 0.530782
+Show TF-IDF accuracy
+F1 score with TF-IDF: 0.544651

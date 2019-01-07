@@ -1,4 +1,5 @@
 import re
+from PIL import Image
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -16,8 +17,8 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 warnings.filterwarnings("ignore", category=DeprecationWarning) # ignore warnings
 
 # load csv files for both train and test
-train = pd.read_csv('../src/train_E6oV3lV.csv')
-test = pd.read_csv('../src/test_tweets_anuFYb8.csv')
+train = pd.read_csv('./src/train_E6oV3lV.csv')
+test = pd.read_csv('./src/test_tweets_anuFYb8.csv')
 
 # combine train and test set
 combi = train.append(test, ignore_index=True)
@@ -67,6 +68,7 @@ plt.figure(figsize=(10, 7))
 plt.imshow(wordcloud, interpolation="bilinear")
 plt.axis('off')
 # plt.show()
+plt.savefig('./src/negativewords.png', bbox_inches='tight')
 
 pos_words = ' '.join([text for text in combi['tidy_tweet'][combi['label'] == 0]])
 poscloud = WordCloud(width=800, height=500, random_state=21, max_font_size=110).generate(pos_words)
@@ -74,6 +76,7 @@ plt.figure(figsize=(10, 7))
 plt.imshow(poscloud, interpolation="bilinear")
 plt.axis('off')
 # plt.show()
+plt.savefig('./src/positivewords.png', bbox_inches='tight')
 
 # extracting hashtags from positive tweets
 HT_positive = hashtag_extract(combi['tidy_tweet'][combi['label'] == 0])
@@ -93,6 +96,7 @@ plt.figure(figsize=(16,5))
 ax = sns.barplot(data=d, x="Hashtag", y="Count")
 ax.set(ylabel = 'Count')
 # plt.show()
+plt.savefig('./src/top10positivetags.png', bbox_inches='tight')
 
 # top 10 negative tweets
 b = nltk.FreqDist(HT_negative)
@@ -103,6 +107,7 @@ plt.figure(figsize=(16,5))
 ax = sns.barplot(data=e, x="Hashtag", y="Count")
 ax.set(ylabel = 'Count')
 # plt.show()
+plt.savefig('./src/top10negativetags.png', bbox_inches='tight')
 
 # bag of word features
 bow_vectorizer = CountVectorizer(max_df=0.90, min_df=2, max_features=1000, stop_words='english')
@@ -112,6 +117,8 @@ bow = bow_vectorizer.fit_transform(combi['tidy_tweet'])
 train_bow = bow[:31962,:]
 test_bow = bow[31962:,:]
 
+f = open("./conv_list/accuracy.txt", "w") # prepare to write output into a file
+f.write("Show BOW accuracy\n")
 # splitting data into training and validation set
 xtrain_bow, xvalid_bow, ytrain, yvalid = train_test_split(train_bow, train['label'], random_state=42, test_size=0.3)
 
@@ -122,6 +129,7 @@ prediction = lreg.predict_proba(xvalid_bow) # predicting on the validation set
 prediction_int = prediction[:,1] >= 0.3 # if prediction is greater than or equal to 0.3 than 1 else 0
 prediction_int = prediction_int.astype(np.int)
 print("F1 score with BOW(Bag Of Words): ", f1_score(yvalid, prediction_int)) # calculating f1 score
+f.write("F1 score with BOW(Bag of Words): %f\n" % f1_score(yvalid, prediction_int))
 
 # TF-IDF features
 tfidf_vectorizer = TfidfVectorizer(max_df=0.90, min_df=2, max_features=1000, stop_words='english')
@@ -139,5 +147,6 @@ lreg.fit(xtrain_tfidf, ytrain)
 prediction = lreg.predict_proba(xvalid_tfidf)
 prediction_int = prediction[:,1] >= 0.3
 prediction_int = prediction_int.astype(np.int)
-
 print("F1 score with TF-IDF: ", f1_score(yvalid, prediction_int))
+f.write("Show TF-IDF accuracy\n")
+f.write("F1 score with TF-IDF: %f\n" % f1_score(yvalid, prediction_int))
