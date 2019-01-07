@@ -37,6 +37,7 @@ class ChatBotGUI(Frame):
 
         self.pack()
         root.title("ChatBot GUI")
+        self.configure(background='grey')
         self.make_widgets()
 
     def make_widgets(self):
@@ -70,19 +71,19 @@ class ChatBotGUI(Frame):
         # check for user input
         if any(word in question.lower() for word in NEG_WORDS):
             self.conversation.insert(END, "Human: " + question + "\nChatBot: " + "Opening..." + "\n")
-            img = Image.open('D:/Archel/Kuliah/5th Semester/Intelligent Systems/Final Project/intelligentsystemproject/sample/src/negativewords.png')
+            img = Image.open('./src/negativewords.png')
             img.show()
         elif any(word in question.lower() for word in POS_WORDS):
             self.conversation.insert(END, "Human: " + question + "\nChatBot: " + "Opening..." + "\n")
-            img = Image.open('D:/Archel/Kuliah/5th Semester/Intelligent Systems/Final Project/intelligentsystemproject/sample/src/positivewords.png')
+            img = Image.open('./src/positivewords.png')
             img.show()
         elif any(word in question.lower() for word in POS_TAGS):
             self.conversation.insert(END, "Human: " + question + "\nChatBot: " + "Opening..." + "\n")
-            img = Image.open('D:/Archel/Kuliah/5th Semester/Intelligent Systems/Final Project/intelligentsystemproject/sample/src/top10positivetags.png')
+            img = Image.open('./src/top10positivetags.png')
             img.show()
         elif any(word in question.lower() for word in NEG_TAGS):
             self.conversation.insert(END, "Human: " + question + "\nChatBot: " + "Opening..." + "\n")
-            img = Image.open('D:/Archel/Kuliah/5th Semester/Intelligent Systems/Final Project/intelligentsystemproject/sample/src/top10negativetags.png')
+            img = Image.open('./src/top10negativetags.png')
             img.show()
         else:
             bot_response = bot.get_response(question)
