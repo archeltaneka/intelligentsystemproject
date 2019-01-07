@@ -109,7 +109,7 @@ ax.set(ylabel = 'Count')
 # plt.show()
 plt.savefig('./src/top10negativetags.png', bbox_inches='tight')
 
-# bag of word features
+# count the number of unique words
 bow_vectorizer = CountVectorizer(max_df=0.90, min_df=2, max_features=1000, stop_words='english')
 # bag-of-words feature matrix
 bow = bow_vectorizer.fit_transform(combi['tidy_tweet'])
@@ -128,10 +128,10 @@ lreg.fit(xtrain_bow, ytrain) # training the model
 prediction = lreg.predict_proba(xvalid_bow) # predicting on the validation set
 prediction_int = prediction[:,1] >= 0.3 # if prediction is greater than or equal to 0.3 than 1 else 0
 prediction_int = prediction_int.astype(np.int)
-print("F1 score with BOW(Bag Of Words): ", f1_score(yvalid, prediction_int)) # calculating f1 score
-f.write("F1 score with BOW(Bag of Words): %f\n" % f1_score(yvalid, prediction_int))
+print("F1 score with BOW(Bag Of Words): ", f1_score(yvalid, prediction_int)) # print f1 score
+f.write("F1 score with BOW(Bag of Words): %f\n" % f1_score(yvalid, prediction_int)) # write into a file
 
-# TF-IDF features
+# count the number of unique words using tfidfvectorizer
 tfidf_vectorizer = TfidfVectorizer(max_df=0.90, min_df=2, max_features=1000, stop_words='english')
 # TF-IDF feature matrix
 tfidf = tfidf_vectorizer.fit_transform(combi['tidy_tweet'])
@@ -147,6 +147,6 @@ lreg.fit(xtrain_tfidf, ytrain)
 prediction = lreg.predict_proba(xvalid_tfidf)
 prediction_int = prediction[:,1] >= 0.3
 prediction_int = prediction_int.astype(np.int)
-print("F1 score with TF-IDF: ", f1_score(yvalid, prediction_int))
+print("F1 score with TF-IDF: ", f1_score(yvalid, prediction_int)) # print f1 score using tf-idf
 f.write("Show TF-IDF accuracy\n")
-f.write("F1 score with TF-IDF: %f\n" % f1_score(yvalid, prediction_int))
+f.write("F1 score with TF-IDF: %f\n" % f1_score(yvalid, prediction_int)) # write into txt file

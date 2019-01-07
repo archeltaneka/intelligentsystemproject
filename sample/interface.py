@@ -1,14 +1,30 @@
 from tkinter import *
 import tkinter.scrolledtext as st
-
+from chatterbot import ChatBot
+from chatterbot.trainers import ListTrainer
+import os
+from PIL import Image
 
 root = Tk()  # main window of the GUI
 user = StringVar()  # define user as string
 
 # Rules for the ChatBot
-ask = ["hi", "hello"]
-hi = ["hi", "hello", "Hello too"]
-error = ["sorry, i don't know", "what u said?"]
+NEG_WORDS = ["show negative words", "negative words"]
+POS_WORDS = ["show positive words", "positive words"]
+POS_TAGS = ["positive tags", "10 positive tags", "top positive tags", "top 10 positive tags"]
+NEG_TAGS = ["negative tags", "10 negative tags", "top negative tags", "top 10 negative tags"]
+
+# create a new bot with specified trainer
+bot = ChatBot(
+    'MyBot',
+    trainer='chatterbot.trainers.ListTrainer'
+)
+bot.set_trainer(ListTrainer)
+
+# gather knowledge for the bot
+for _file in os.listdir('conv_list'):
+    conversations = open('conv_list/' + _file, 'r').readlines()
+    bot.train(conversations)
 
 
 class ChatBotGUI(Frame):
@@ -51,10 +67,30 @@ class ChatBotGUI(Frame):
 
         self.conversation['state'] = 'normal'
 
-        if question in ask:
-            self.conversation.insert(END, "Human: " + question + "\nChatBot: " + "Success" + "\n")
+        # check for user input
+        if any(word in question.lower() for word in NEG_WORDS):
+            self.conversation.insert(END, "Human: " + question + "\nChatBot: " + "Opening..." + "\n")
+            img = Image.open('D:/Archel/Kuliah/5th Semester/Intelligent Systems/Final Project/intelligentsystemproject/sample/src/negativewords.png')
+            img.show()
+        elif any(word in question.lower() for word in POS_WORDS):
+            self.conversation.insert(END, "Human: " + question + "\nChatBot: " + "Opening..." + "\n")
+            img = Image.open('D:/Archel/Kuliah/5th Semester/Intelligent Systems/Final Project/intelligentsystemproject/sample/src/positivewords.png')
+            img.show()
+        elif any(word in question.lower() for word in POS_TAGS):
+            self.conversation.insert(END, "Human: " + question + "\nChatBot: " + "Opening..." + "\n")
+            img = Image.open('D:/Archel/Kuliah/5th Semester/Intelligent Systems/Final Project/intelligentsystemproject/sample/src/top10positivetags.png')
+            img.show()
+        elif any(word in question.lower() for word in NEG_TAGS):
+            self.conversation.insert(END, "Human: " + question + "\nChatBot: " + "Opening..." + "\n")
+            img = Image.open('D:/Archel/Kuliah/5th Semester/Intelligent Systems/Final Project/intelligentsystemproject/sample/src/top10negativetags.png')
+            img.show()
         else:
-            self.conversation.insert(END, "Human: " + question + "\nChatBot: " + "Fail" + "\n")
+            bot_response = bot.get_response(question)
+            self.conversation.insert(END, "Human: " + question + "\nChatBot: " + str(bot_response) + "\n")
+        # if question in ask:
+        #     self.conversation.insert(END, "Human: " + question + "\nChatBot: " + "Success" + "\n")
+        # else:
+        #     self.conversation.insert(END, "Human: " + question + "\nChatBot: " + "Fail" + "\n")
 
         self.conversation['state'] = 'disabled'
 
