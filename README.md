@@ -15,3 +15,5 @@ Sample folder has 3 things: conv_list folder, src folder, and python files:<br/>
 To try the program, run interface.py.<br/>
 Then enter a command or request by typing into the textbox beside the "Get Response" button, then click the button to get a response from the chatbot.<br/>
 The conversation between the user and the chatbot will be displayed on the textbox below the "Conversation" text.<br/>
+
+For further and clearer explanation, please watch the following video: https://www.youtube.com/watch?v=nhP2lrR1R18&feature=youtu.be
