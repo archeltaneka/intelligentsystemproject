@@ -1,6 +1,6 @@
 # Intelligent Systems Final Project
 
-This Project is Created By: @bcbill , @archeltaneka , and @charrottama
+This Project is Created By Binus International University Students: Bill Clinton , Archel Taneka , and Charrottama Oshmar
 
 Docs is the documentation folder containing a References file that consist of links.<br/>
 
