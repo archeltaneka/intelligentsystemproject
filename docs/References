@@ -1,10 +1,14 @@
 For the GUI:
-https://wiki.python.org/moin/TkInter
-https://github.com/gunthercox/ChatterBot/blob/master/examples/tkinter_gui.py
-https://stackoverflow.com/questions/45387453/having-trouble-using-tkinter-in-python-to-create-a-simple-gui-for-my-simple-chat
-https://steemit.com/python/@amjaed/make-a-very-simple-chatbot-with-python-and-tkinter
-https://stackoverflow.com/questions/2395431/using-tkinter-in-python-to-edit-the-title-bar
-http://effbot.org/tkinterbook/grid.htm
+https://wiki.python.org/moin/TkInter 
+https://github.com/gunthercox/ChatterBot/blob/master/examples/tkinter_gui.py 
+https://stackoverflow.com/questions/45387453/having-trouble-using-tkinter-in-python-to-create-a-simple-gui-for-my-simple-chat 
+https://steemit.com/python/@amjaed/make-a-very-simple-chatbot-with-python-and-tkinter 
+https://stackoverflow.com/questions/2395431/using-tkinter-in-python-to-edit-the-title-bar 
+http://effbot.org/tkinterbook/grid.htm 
+http://effbot.org/tkinterbook/
+http://effbot.org/tkinterbook/tkinter-whats-tkinter.htm
+https://www.tutorialspoint.com/python/python_gui_programming.htm
+
 
 General Chatbot Guides and Tutorials:
 https://www.youtube.com/watch?v=HkN35fIETR0
@@ -13,4 +17,11 @@ https://github.com/algeorge/Jarvis/blob/master/jarvis.py
 https://chatterbot.readthedocs.io/en/stable/quickstart.html#training-your-chatbot
 
 Algorithm and Coding Guide:
-https://micropyramid.com/blog/understand-self-and-__init__-method-in-python-class/
+https://micropyramid.com/blog/understand-self-and-__init__-method-in-python-class/ 
+https://datascienceplus.com/twitter-analysis-with-python/
+https://marcobonzanini.com/2015/03/02/mining-twitter-data-with-python-part-1/
+https://www.geeksforgeeks.org/twitter-sentiment-analysis-using-python/
+https://blog.algorithmia.com/introduction-natural-language-processing-nlp/
+https://www.geeksforgeeks.org/generating-word-cloud-python/
+https://www.nltk.org/ 
+https://towardsdatascience.com/an-easy-introduction-to-natural-language-processing-b1e2801291c1
